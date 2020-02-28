@@ -14,6 +14,10 @@ FROM alpine:latest
 LABEL version="1.4.6"
 LABEL description="Containerized ZeroTier One for use on CoreOS or other Docker-only Linux hosts."
 
+# Uncomment to build in container
+# RUN apk add --update alpine-sdk linux-headers
+RUN apk add --update --no-cache libgcc libc6-compat libstdc++
+
 # ZeroTier relies on UDP port 9993
 EXPOSE 9993/udp
 
