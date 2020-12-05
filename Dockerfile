@@ -10,13 +10,13 @@ RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 0x1657198823e
 RUN apt-get update && apt-get install -y zerotier-one=1.6.2
 COPY main.sh /var/lib/zerotier-one/main.sh
 
-FROM alpine:latest
+FROM frolvlad/alpine-glibc:latest
 LABEL version="1.6.2"
 LABEL description="Containerized ZeroTier One for use on CoreOS or other Docker-only Linux hosts."
 
 # Uncomment to build in container
 # RUN apk add --update alpine-sdk linux-headers
-RUN apk add --update --no-cache libgcc libc6-compat libstdc++
+RUN apk add --update --no-cache libstdc++
 
 # ZeroTier relies on UDP port 9993
 EXPOSE 9993/udp
