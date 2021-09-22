@@ -5,17 +5,16 @@ FROM debian:buster-slim as builder
 ## Supports x86_64, x86, arm, and arm64
 
 RUN apt-get update && apt-get install -y curl gnupg
-RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 0x1657198823e52a61  && \
+RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 0x1657198823e52a61  && \
     echo "deb http://download.zerotier.com/debian/buster buster main" > /etc/apt/sources.list.d/zerotier.list
-RUN apt-get update && apt-get install -y zerotier-one=1.6.2
+RUN apt-get update && apt-get install -y zerotier-one=1.6.5
 COPY main.sh /var/lib/zerotier-one/main.sh
 
 FROM frolvlad/alpine-glibc:latest
-LABEL version="1.6.2"
+
+LABEL version="1.6.5"
 LABEL description="Containerized ZeroTier One for use on CoreOS or other Docker-only Linux hosts."
 
-# Uncomment to build in container
-# RUN apk add --update alpine-sdk linux-headers
 RUN apk add --update --no-cache libstdc++
 
 # ZeroTier relies on UDP port 9993
